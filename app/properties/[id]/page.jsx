@@ -2,9 +2,9 @@
 import { useRouter, useParams } from 'next/navigation';
 
 const PropertyPage = () => {
-  console.log('Hello');
   const router = useRouter();
   const { id } = useParams();
+
   return (
     <div>
       <button
