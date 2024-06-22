@@ -1,6 +1,7 @@
 'use client';
 import PropertyDetails from '@/components/PropertyDetails';
 import PropertyHeaderImage from '@/components/PropertyHeaderImage';
+import PropertyImages from '@/components/PropertyImages';
 import Spinner from '@/components/Spinner';
 import { fetchProperty } from '@/utils/requests';
 import Link from 'next/link';
@@ -11,7 +12,6 @@ import { FaArrowLeft } from 'react-icons/fa';
 const PropertyPage = () => {
   const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
   const { id } = useParams();
 
   useEffect(() => {
@@ -150,6 +150,7 @@ const PropertyPage = () => {
               </div>
             </div>
           </section>
+          <PropertyImages images={property.images} />
         </>
       )}
     </>
