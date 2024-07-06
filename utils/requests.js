@@ -1,18 +1,18 @@
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
 export async function fetchProperties(page = 1, pageSize = 3) {
-  try {
-    if (!apiDomain) {
-      return [];
+  if (!apiDomain) {
+    return [];
+  }
+
+  const res = await fetch(
+    `${apiDomain}/properties?page=${page}&pageSize=${pageSize}`,
+    {
+      cache: 'no-store',
     }
+  );
 
-    const res = await fetch(
-      `${apiDomain}/properties?page=${page}&pageSize=${pageSize}`,
-      {
-        cache: 'no-store',
-      }
-    );
-
+  try {
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -25,15 +25,15 @@ export async function fetchProperties(page = 1, pageSize = 3) {
 }
 
 export async function fetchFeaturedProperties() {
+  if (!apiDomain) {
+    return [];
+  }
+
+  const res = await fetch(`${apiDomain}/properties/featured`, {
+    cache: 'no-store',
+  });
+
   try {
-    if (!apiDomain) {
-      return [];
-    }
-
-    const res = await fetch(`${apiDomain}/properties/featured`, {
-      cache: 'no-store',
-    });
-
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
@@ -46,15 +46,15 @@ export async function fetchFeaturedProperties() {
 }
 
 export async function fetchProperty(id) {
+  if (!apiDomain) {
+    return null;
+  }
+
+  const res = await fetch(`${apiDomain}/properties/${id}`, {
+    cache: 'no-store',
+  });
+
   try {
-    if (!apiDomain) {
-      return null;
-    }
-
-    const res = await fetch(`${apiDomain}/properties/${id}`, {
-      cache: 'no-store',
-    });
-
     if (!res.ok) {
       throw new Error('Failed to fetch data');
     }
