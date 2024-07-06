@@ -1,12 +1,36 @@
 const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
 
-export async function fetchProperties() {
+export async function fetchProperties(page = 1, pageSize = 3) {
   try {
     if (!apiDomain) {
       return [];
     }
 
-    const res = await fetch(`${apiDomain}/properties`, {
+    const res = await fetch(
+      `${apiDomain}/properties?page=${page}&pageSize=${pageSize}`,
+      {
+        cache: 'no-store',
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch data');
+    }
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+}
+
+export async function fetchFeaturedProperties() {
+  try {
+    if (!apiDomain) {
+      return [];
+    }
+
+    const res = await fetch(`${apiDomain}/properties/featured`, {
       cache: 'no-store',
     });
 
